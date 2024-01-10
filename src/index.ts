@@ -1,8 +1,16 @@
+import cors from 'cors';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import router from './routes';
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(
+  cors({
+      origin: true,
+      credentials: true,      
+  })
+);
 
 // Parsing middleware
 app.use(express.urlencoded({ extended: true }));

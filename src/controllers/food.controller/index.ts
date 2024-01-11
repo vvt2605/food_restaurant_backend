@@ -1,0 +1,1 @@
+export * as foodController from './food.controller'

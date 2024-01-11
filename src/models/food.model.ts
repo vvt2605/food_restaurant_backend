@@ -27,6 +27,7 @@ Food.init(
   {
     sequelize,
     modelName: 'Food',
+    tableName: 'Foods'
   }
 );
 

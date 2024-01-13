@@ -12,7 +12,6 @@ const sequelize = new Sequelize('food_restaurant', 'root', 'thanhvo2003hagl', {
     timestamps: false, // Optionally, set to false if you don't want timestamps in your models
   },
 });
-
 // Function to test database connection
 async function testDBConnection() {
   try {

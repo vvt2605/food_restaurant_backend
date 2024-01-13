@@ -1,11 +1,10 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import Account from './account.model';
 import sequelize from '../config/db';
 
-class Customer extends Model {}
+class Account extends Model {}
 
-Customer.init({
-    customerID: {
+Account.init({
+    accountID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -32,17 +31,15 @@ Customer.init({
         allowNull: false
     },
     role: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('admin', 'user'),
+        allowNull: false,
         defaultValue: 'user' 
     }
 }, {
     sequelize,
-    modelName: 'Customer',
-    tableName: 'Customers'
+    modelName: 'Account',
+    tableName: 'Accounts'
 });
-// (async () => {
-//     await Customer.sync({ alter: true});
-//   })();
-Customer.belongsTo(Account, { foreignKey: 'accountID' });
-export default Customer;
+
+export default Account ;
 

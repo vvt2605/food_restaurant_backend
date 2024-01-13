@@ -6,7 +6,7 @@ class Food extends Model {}
 
 Food.init(
   {
-    foodId: {
+    foodID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -20,9 +20,9 @@ Food.init(
     status: {
       type: DataTypes.STRING,
     },
-    points: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
+    image: {
+        type: DataTypes.BLOB
+    }
   },
   {
     sequelize,

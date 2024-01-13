@@ -15,7 +15,7 @@ Order.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        foodQuantityId: {
+        foodQuantityID: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },

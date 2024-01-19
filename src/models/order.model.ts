@@ -1,37 +1,40 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
+import sequelize from '../config/db';
+import User from './user.model';
 
-const sequelize = new Sequelize('sqlite::memory:');
+export enum Status {
+    PAID = 'paid',
+    UNPAID = 'unpaid',
+    COMPLETED = 'completed',
+}
+export enum TypeOrder {
+    ONLINE = 'online',
+    OFFLINE = 'offline'
+}
+class Order extends Model {
 
-class Order extends Model { }
+}
 
-Order.init(
-    {
-        orderID: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        customerID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        foodQuantityID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        shipperID: {
-            type: DataTypes.INTEGER,
-        },
-        status: {
-            type: DataTypes.STRING,
-            defaultValue: 'pending', 
-        },
-    },
-    {
-        sequelize,
-        modelName: 'Order',
-        tableName: 'Orders',
-    }
-);
+Order.init({
+  orderID: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  status: {
+    type: DataTypes.STRING
+  },
+  typeOrder: {
+    type: DataTypes.STRING,
+    defaultValue: 'offline'
+  }
+
+}, {
+  sequelize,
+  timestamps: true,
+  modelName: 'Order',
+  tableName: 'Orders',
+});
+
 
 export default Order;

@@ -2,7 +2,7 @@
 import Account from "../../models/account.model"
 import { Op } from "sequelize";
 
-// get all account 
+// get all account for admin
 export const getAllAccount = async (req: any, res: any) => {
     try {
         const allAccounts = await Account.findAll();

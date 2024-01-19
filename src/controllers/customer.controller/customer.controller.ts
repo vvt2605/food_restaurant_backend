@@ -1,14 +1,21 @@
 import { error } from 'console';
 import sequelize from '../../config/db'; // Import connection instance from Sequelize
-import Customer from '../../models/customer.model';
 import { Op } from "sequelize";
+import User from '../../models/user.model';
 
-// get all customer 
+// get all customer (for Admin)
 export const getAllCustomers = async (req: any, res: any) => {
     try {
-        Customer.findAll()
+        User.findAll({
+            where: {
+                role: {
+                    [Op.ne]: 'admin', // [Op.ne] là phép toán "not equal"
+                },
+            },
+        })
             .then(customers => {
                 // Chuyển đổi dữ liệu thành JSON và trả về cho client
+                
                 const customersJSON = customers.map(customer => customer.toJSON());
                 res.status(200).json({
                     "data": customersJSON,
@@ -30,7 +37,7 @@ export const getAllCustomers = async (req: any, res: any) => {
 export const registerCustomer = async (req: any, res: any) => {
     const { name, phone, address, username, password } = req.body;
     try {
-        Customer.create({
+        User.create({
             name: name,
             phone: phone,
             address: address,
@@ -59,7 +66,7 @@ export const findCustomer = async (req: any, res: any) => {
     try {
         // Sử dụng Op.iLike để thực hiện tìm kiếm không phân biệt chữ hoa chữ thường
         
-        const customers = await Customer.findAll({
+        const customers = await User.findAll({
             where: {
                 name: {
                     [Op.like]: `%${name}%`

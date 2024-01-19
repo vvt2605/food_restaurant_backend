@@ -1,8 +1,11 @@
-
 import { Sequelize, DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db';
 import Account from './account.model';
-
+import Order from './order.model';
+export enum Role {
+    ADMIN = 'admin',
+    USER = 'user'
+}
 class User extends Model {}
 
 User.init({
@@ -22,9 +25,13 @@ User.init({
     }
 }, {
     sequelize,
+    timestamps: true,
     modelName: 'User',
     tableName: 'Users'
 });
-User.belongsTo(Account, { foreignKey: 'accountID' });
-export default User ;
 
+// Establishing associations
+User.belongsTo(Account, { foreignKey: 'accountID' });
+User.hasMany(Order, { foreignKey: 'userID' });
+Order.belongsTo(User, {foreignKey: 'userID'})
+export default User;

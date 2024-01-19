@@ -9,12 +9,15 @@ const sequelize = new Sequelize('food_restaurant', 'root', 'thanhvo2003hagl', {
   dialect: 'mssql',
   port: 51912, // Default port for SQL Server
   define: {
-    timestamps: false, // Optionally, set to false if you don't want timestamps in your models
+    timestamps: true, // Optionally, set to false if you don't want timestamps in your models
   },
+  logging: false
 });
+
 // Function to test database connection
 async function testDBConnection() {
   try {
+    
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {

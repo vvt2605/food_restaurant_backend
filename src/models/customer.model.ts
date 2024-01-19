@@ -2,6 +2,8 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import Account from './account.model';
 import sequelize from '../config/db';
 
+
+
 class Customer extends Model {}
 
 Customer.init({
@@ -37,6 +39,7 @@ Customer.init({
     }
 }, {
     sequelize,
+    timestamps: true,
     modelName: 'Customer',
     tableName: 'Customers'
 });

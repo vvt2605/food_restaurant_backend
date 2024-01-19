@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
-const sequelize = new Sequelize('sqlite::memory:');
+import sequelize from '../config/db';
 
 class Food extends Model {}
 
@@ -26,6 +26,7 @@ Food.init(
   },
   {
     sequelize,
+    timestamps: true,
     modelName: 'Food',
     tableName: 'Foods'
   }

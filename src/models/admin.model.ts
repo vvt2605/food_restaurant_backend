@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db';
 import Account from './account.model';
 
-class Admin extends Model {}
+class Admin extends Model { }
 
 Admin.init({
     adminID: {
@@ -14,17 +14,19 @@ Admin.init({
     username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true 
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
-    sequelize,
+    sequelize, 
+    timestamps: true,
     modelName: 'Admin',
     tableName: 'Admins'
 });
 Admin.belongsTo(Account, { foreignKey: 'accountID' });
-export default Admin ;
+
+export default Admin;
 

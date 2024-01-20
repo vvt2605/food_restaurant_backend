@@ -105,6 +105,57 @@ export const findByID = async (req:any, res: any) => {
 
     
 }
+//
+// update food by ID
+export const updateFood = async (req: any, res: any) => {
+    const foodID = req.params.id; // Lấy ID từ URL
+    const { name, price, status, image } = req.body;
+
+    try {
+        // Kiểm tra xem food có tồn tại không
+        const foodToUpdate = await Food.findByPk(foodID);
+
+        if (!foodToUpdate) {
+            return res.status(404).json({ message: "Food not found" });
+        }
+
+        // Cập nhật thông tin food
+        await foodToUpdate.update({
+            name: name,
+            price: price,
+            status: status,
+            image: image
+        });
+
+        res.status(200).json({ message: "Food updated successfully" });
+    } catch (error) {
+        console.error("Error when updating food:", error);
+        res.status(500).json({ message: "Error occurred while updating food" });
+    }
+};
+
+// delete food
+// delete food by ID
+export const deleteFood = async (req: any, res: any) => {
+    const foodID = req.params.id; // Lấy ID từ URL
+
+    try {
+        // Kiểm tra xem food có tồn tại không
+        const foodToDelete = await Food.findByPk(foodID);
+
+        if (!foodToDelete) {
+            return res.status(404).json({ message: "Food not found" });
+        }
+
+        // Xóa món ăn
+        await foodToDelete.destroy();
+
+        res.status(200).json({ message: "Food deleted successfully" });
+    } catch (error) {
+        console.error("Error when deleting food:", error);
+        res.status(500).json({ message: "Error occurred while deleting food" });
+    }
+};
 
 
 

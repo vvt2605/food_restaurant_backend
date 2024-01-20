@@ -70,7 +70,55 @@ export const registerAccount = async (req: any, res: any) => {
 }
 
 // update account 
-export const updateAccount = async (req:any, res: any) => {
+export const updateAccount = async (req: any, res: any) => {
     const { name, phone, address, username, password } = req.body;
-    
+    const accountId = req.params.id;
+    try {
+        // Kiểm tra xem account có tồn tại không
+        const existingAccount = await Account.findByPk(accountId);
+
+        if (!existingAccount) {
+            res.status(404).json({ message: "Account not found" });
+            return;
+        }
+
+        // Cập nhật thông tin tài khoản
+        const updatedAccount = await existingAccount.update({
+            name: name,
+            phone: phone,
+            address: address,
+            username: username,
+            password: password
+        });
+
+        res.status(200).json({
+            data: updatedAccount.toJSON(),
+            message: "Update account success"
+        });
+    } catch (error) {
+        console.error('Error when updating account:', error);
+        res.status(500).json({ message: "Error when updating account" });
+    }
 }
+
+//delete account for admin
+export const deleteAccount = async (req: any, res: any) => {
+    const accountId = req.params.id;
+
+    try {
+        // Kiểm tra xem tài khoản có tồn tại không
+        const accountToDelete = await Account.findByPk(accountId);
+
+        if (!accountToDelete) {
+            return res.status(404).json({ message: "Account not found" });
+        }
+
+        // Xóa tài khoản
+        await accountToDelete.destroy();
+
+        res.status(200).json({ message: "Account deleted successfully" });
+    } catch (error) {
+        console.error("Error when deleting account:", error);
+        res.status(500).json({ message: "Error occurred while deleting account" });
+    }
+};

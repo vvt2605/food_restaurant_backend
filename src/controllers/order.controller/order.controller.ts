@@ -1,8 +1,28 @@
 import Order from "../../models/order.model";
 import OrderItem from "../../models/orderItems.model";
+import { Op } from "sequelize";
 //get all orders 
 export const getAllOrders = async(req: any, res: any) => {
+    try {
+        Order.findAll()
+            .then(orders => {
+                // Chuyển đổi dữ liệu thành JSON và trả về cho client
+                
+                const ordersJSON = orders.map(customer => customer.toJSON());
+                res.status(200).json({
+                    "data": ordersJSON,
+                    "message": "success"
+                });
+            })
+            .catch(err => {
+                console.error('Lỗi khi truy vấn bảng orders:', err);
+                res.status(500).json({ error: 'Lỗi khi truy vấn bảng orders' });
+            });
 
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: "Error occurred" });
+    }
 }
 
 //post create new order
@@ -38,3 +58,4 @@ export const createOrder = async (req: any, res: any) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+

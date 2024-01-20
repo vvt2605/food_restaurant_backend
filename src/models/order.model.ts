@@ -12,6 +12,7 @@ export enum Status {
     COMPLETED = 'completed',
     PENDING = 'pending'
 }
+
 export enum TypeOrder {
     ONLINE = 'online',
     OFFLINE = 'offline'

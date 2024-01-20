@@ -30,8 +30,4 @@ User.init({
     tableName: 'Users'
 });
 
-// Establishing associations
-User.belongsTo(Account, { foreignKey: 'accountID' });
-User.hasMany(Order, { foreignKey: 'userID' });
-Order.belongsTo(User, {foreignKey: 'userID'})
 export default User;

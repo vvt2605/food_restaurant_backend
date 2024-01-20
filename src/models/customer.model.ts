@@ -46,6 +46,5 @@ Customer.init({
 // (async () => {
 //     await Customer.sync({ alter: true});
 //   })();
-Customer.belongsTo(Account, { foreignKey: 'accountID' });
 export default Customer;
 

@@ -23,6 +23,7 @@ export const getAllAccount = async (req: any, res: any) => {
     }
 }
 
+
 // create new account 
 export const registerAccount = async (req: any, res: any) => {
     const { name, phone, address, username, password } = req.body;

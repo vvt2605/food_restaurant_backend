@@ -26,7 +26,6 @@ Admin.init({
     modelName: 'Admin',
     tableName: 'Admins'
 });
-Admin.belongsTo(Account, { foreignKey: 'accountID' });
 
 export default Admin;
 
